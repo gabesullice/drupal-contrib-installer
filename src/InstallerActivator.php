@@ -41,6 +41,7 @@ class InstallerActivator implements PluginInterface, EventSubscriberInterface {
         $this->ensureSymlink($target_directory, $source_path);
       }
     }
+    $this->ensureSymlink(realpath('vendor'), realpath('web') . '/vendor');
   }
 
   protected function ensureSymlink($target, $source) {
