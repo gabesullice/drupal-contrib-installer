@@ -8,17 +8,6 @@ use Composer\Repository\InstalledRepositoryInterface;
 
 class ExtensionInstaller extends LibraryInstaller {
 
-  public function install(InstalledRepositoryInterface $repo, PackageInterface $package) {
-    $extra = $package->getExtra();
-    if (!empty($extra['patches']['drupal/core']) && method_exists($package, 'setExtra')) {
-      $core_patches = $extra['patches']['drupal/core'];
-      $extra['patches']['drupal/drupal'] = array_merge($core_patches, $extra['patches']['drupal/drupal'] ?? []);
-      unset($extra['patches']['drupal/core']);
-      $package->setExtra($extra);
-    }
-    parent::install($repo, $package);
-  }
-
   public function getInstallPath(PackageInterface $package) {
     $subtype = substr($package->getType(), strlen('drupal-'));
     $name = explode('/', $package->getPrettyName(), 2)[1];
